@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto"
+import Entity from "../../../core/entities/entity"
 
 type EmployeeType = {
     name: string
@@ -10,16 +11,33 @@ type EmployeeType = {
     isPetFriendly: boolean
     isAvaiable: boolean
 }
-export default class Employee {
-    private id: string
-    private name: string
-    private email: string
-    private password: string
+export default class Employee extends Entity<EmployeeType> {
 
     constructor(data: EmployeeType, id?: string) {
-        this.name = data.name
-        this.email = data.email
-        this.password = data.password
-        this.id = id ?? randomUUID()
+        super(data, id)
+    }
+
+    get name() {
+        return this.attributes.name;
+    }
+
+    get email() {
+        return this.attributes.email;
+    }
+
+    get password() {
+        return this.attributes.password;
+    }
+
+    set name(name: string) {
+        this.attributes.name = name;
+    }
+
+    set email(email: string) {
+        this.attributes.email = email;
+    }
+
+    set password(password) {
+        this.attributes.password = password;
     }
 }
