@@ -1,5 +1,5 @@
-import { randomUUID } from "node:crypto"
 import Entity from "../../../core/entities/entity"
+import Identity from "../../../core/entities/identity"
 
 type EmployeeType = {
     name: string
@@ -13,7 +13,7 @@ type EmployeeType = {
 }
 export default class Employee extends Entity<EmployeeType> {
 
-    constructor(data: EmployeeType, id?: string) {
+    constructor(data: EmployeeType, id?: Identity) {
         super(data, id)
     }
 

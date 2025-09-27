@@ -1,5 +1,5 @@
-import { randomUUID } from "node:crypto"
 import Entity from "../../../core/entities/entity"
+import Identity from "../../../core/entities/identity"
 
 type RoomType = {
     name: string
@@ -14,7 +14,7 @@ type RoomType = {
 
 export default class Room extends Entity<RoomType>{
 
-    constructor(data: RoomType, id: string) {
+    constructor(data: RoomType, id: Identity) {
         super(data, id)
     }
 
