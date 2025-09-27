@@ -12,10 +12,9 @@ type BookingType = {
 
 export default class Booking extends Entity<BookingType> {
 
-    constructor(data: BookingType, id: Identity) {
-        super(data, id)
+    static create(data: BookingType, id: Identity) {
+        return new Booking(data, id)
     }
-    
     get room() {
         return this.attributes.room
     }
