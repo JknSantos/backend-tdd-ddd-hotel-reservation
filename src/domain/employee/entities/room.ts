@@ -1,10 +1,11 @@
 import Entity from "../../../core/entities/entity"
 import Identity from "../../../core/entities/identity"
 import { Optional } from "../../../core/entities/types/optional"
+import Money from "../../shared/value-objects/money"
 
 type RoomType = {
     name: string
-    price: string
+    price: Money
     image: string
     hasWifi: boolean
     hasAir: boolean
@@ -62,7 +63,7 @@ export default class Room extends Entity<RoomType>{
         this.attributes.name = name
     }
 
-    set price(price: string) {
+    set price(price: Money) {
         this.attributes.price = price
     }
 
