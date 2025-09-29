@@ -1,8 +1,8 @@
 import Room from "../../employee/entities/room"
-import Entity from "../../../core/entities/entity"
 import Identity from "../../../core/entities/identity"
 import { Optional } from "../../../core/entities/types/optional"
 import Email from "../../shared/value-objects/email"
+import AggregateRoot from "../../../core/entities/aggregate--root"
 
 type BookingType = {
     room: Room
@@ -12,7 +12,7 @@ type BookingType = {
     isActive: boolean
 }
 
-export default class Booking extends Entity<BookingType> {
+export default class Booking extends AggregateRoot<BookingType> {
 
     static create(data: Optional<BookingType, 'isActive'>, id: Identity) {
         return new Booking({
