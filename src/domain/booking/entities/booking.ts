@@ -1,6 +1,7 @@
 import Room from "../../employee/entities/room"
 import Entity from "../../../core/entities/entity"
 import Identity from "../../../core/entities/identity"
+import { Optional } from "../../../core/entities/types/optional"
 
 type BookingType = {
     room: Room
@@ -12,8 +13,11 @@ type BookingType = {
 
 export default class Booking extends Entity<BookingType> {
 
-    static create(data: BookingType, id: Identity) {
-        return new Booking(data, id)
+    static create(data: Optional<BookingType, 'isActive'>, id: Identity) {
+        return new Booking({
+            ...data,
+            isActive: data.isActive ?? true
+        }, id)
     }
     get room() {
         return this.attributes.room

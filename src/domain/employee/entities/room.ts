@@ -1,5 +1,6 @@
 import Entity from "../../../core/entities/entity"
 import Identity from "../../../core/entities/identity"
+import { Optional } from "../../../core/entities/types/optional"
 
 type RoomType = {
     name: string
@@ -14,8 +15,15 @@ type RoomType = {
 
 export default class Room extends Entity<RoomType>{
 
-    static create(data: RoomType, id?: Identity) {
-        return new Room(data, id)
+    static create(data: Optional<RoomType, 'hasAir' | 'hasKitchen' | 'hasWifi' | 'isPetFriendly' | 'isAvaiable'>, id?: Identity) {
+        return new Room({
+            ...data,
+            hasWifi: data.hasWifi ?? false,
+            hasAir: data.hasAir ?? false,
+            hasKitchen: data.hasKitchen ?? false,
+            isPetFriendly: data.isPetFriendly ?? false,
+            isAvaiable: data.isAvaiable ?? true
+        }, id)
     }
 
     get name() {
