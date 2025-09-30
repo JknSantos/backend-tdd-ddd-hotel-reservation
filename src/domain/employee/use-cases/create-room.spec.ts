@@ -1,46 +1,24 @@
-import Money from "../../shared/value-objects/money"
-import Room from "../entities/room"
+import { inMemoryRoomRepository } from "../../../../test/repositories/in-memory-room-repositories"
+import { CreateRoomUseCase } from "./create-room"
 
-type Request = {
-    name: string
-    price: number
-    image: string
-}
-
-abstract class RoomRepository {
-    abstract create(room: Room): Room
-}
-class CreateRoomUseCase {
-
-    constructor(private roomRepository: RoomRepository) {}
-
-    handle(data: Request) {
-        const price = Money.create(data.price)
-        const room = Room.create({...data, price})
-        this.roomRepository.create(room)
-        return room
-    }
-}
-
-class RoomMemory implements RoomRepository {
-    private rooms: Room[] = []
-
-    create(room: Room): Room {
-        this.rooms.push(room)
-        return room
-    }
-}
+let roomRepository: inMemoryRoomRepository
+let useCase: CreateRoomUseCase
 
 describe('Create rooms', () => {
+
+    beforeEach(() => {
+        roomRepository = new inMemoryRoomRepository()
+        useCase = new CreateRoomUseCase(roomRepository)
+    })
+
     test('Must create a room', () => {
-        const roomMemory = new RoomMemory()
-        const useCase = new CreateRoomUseCase(roomMemory)
         const room = useCase.handle({
             name: 'Suite Presidencial',
             price: 120000,
             image: 'room.jpg'
         })
 
-        expect(room.name).toEqual('Suite Presidencial')
+        expect(room).toBeDefined()
+        expect(roomRepository.items[0]?.name).toEqual('Suite Presidencial')
     })
 })
