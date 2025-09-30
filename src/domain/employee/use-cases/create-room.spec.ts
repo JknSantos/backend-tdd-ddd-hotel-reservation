@@ -12,8 +12,8 @@ describe('Create rooms', () => {
         useCase = new CreateRoomUseCase(roomRepository)
     })
 
-    test('Must create a room', () => {
-        const room = useCase.handle({
+    test('Must create a room', async () => {
+        const room = await useCase.handle({
             name: 'Suite Presidencial',
             price: 120000,
             image: 'room.jpg'
